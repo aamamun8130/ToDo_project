@@ -52,7 +52,7 @@ ul{
 }
 
 ul li {
-    background-color: white;
+    background-color: rgb(255, 223, 154);
     list-style-type: none;
     border-radius: 5px;
     padding: 20px 20px;

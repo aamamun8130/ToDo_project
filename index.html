@@ -8,17 +8,16 @@
     <title>todo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="reset.css" />
 </head>
 
 <body>
     <header>
-        <input id="item" type="text" placeholder="Enter activity..." />
-        <button id="add"><i style="color:#e68609" class="fa fa-plus"></i></button>
+        <input id="iputActivity" type="text" placeholder="Enter activity..." />
+        <button id="add" onclick="addActivity();"><i style="color:#e68609" class="fa fa-plus"></i></button>
     </header>
     <ul>
         <li>
-            <span>Item 1</span>
+            <span id="activity">Item 1</span>
             <i class="fa fa-check-circle" style="padding-left:15px; color:aqua; float: right; height: 50px;"></i>
             <i class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>
         </li>
@@ -26,17 +25,14 @@
     <hr style="background-color: grey;margin: 30px;">
 
     <ul>
-            <li>
-                <span>Item 1</span>
-                <i class="fa fa-check-circle" style="padding-left:15px; color:aqua; float: right; height: 50px;"></i>
-                <i class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>
-            </li>
-        </ul>
+        <li>
+            <span>Item 1</span>
+            <i class="fa fa-check-circle" style="padding-left:15px; color:aqua; float: right; height: 50px;"></i>
+            <i class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>
+        </li>
+    </ul>
 
-    </div>
-
-    <div>is a div</div>
-
+    <script src="index.js"></script>
 </body>
 
 </html>

@@ -3,15 +3,35 @@ function $(id) {
 }
 
 var eId = 0;
-function addActivity() {
-    eId += 1;
-    var inputActivity = $("iputActivity").value;
-    $('actContainer').innerHTML += '<li id="'+eId+'">' +
-        '<span id="#" >' + inputActivity + '</span>' +
-        '<i id="'+eId+'"onclick="doneActivity(this.id); removeElement(this.id);" class="fa fa-check-circle" style="padding-left:15px; color:aqua; float: right; height: 50px;"></i>' +
-        '<i id="'+eId+'"  onclick="removeElement(this.id);" class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>' +
-        '</li>';
 
+/// Input data save in variable
+
+function inputData(){
+    eId += 1;
+    let inputActivity = $("iputActivity").value;
+    let expireDate = "25/05/19";
+    $("iputActivity").value = "";
+    let  data = {
+                    id : eId,
+                    activity : inputActivity,
+                    expData : expireDate
+    
+                };
+
+    console.log(data);
+    
+    DOMRender(data);           
+    
+}
+
+// dom remder function
+
+function DOMRender(data){
+    $('actContainer').innerHTML += '<li id="'+data.id+'">' +
+        '<span id="#" >' + data.activity + '</span>' +
+        '<i id="'+data.id+'"onclick="doneActivity(this.id); removeElement(this.id);" class="fa fa-check-circle" style="padding-left:15px; color:aqua; float: right; height: 50px;"></i>' +
+        '<i id="'+data.id+'"  onclick="removeElement(this.id);" class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>' +
+        '</li>';
 }
 
 function removeElement(elementId) {

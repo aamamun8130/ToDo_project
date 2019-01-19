@@ -8,8 +8,21 @@
     <title>todo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
+    <script src="js/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB97TM4w-XeBDIYnMsxCFGaqWqfAD-n36U",
+            authDomain: "todoproject-7badf.firebaseapp.com",
+            databaseURL: "https://todoproject-7badf.firebaseio.com",
+            projectId: "todoproject-7badf",
+            storageBucket: "todoproject-7badf.appspot.com",
+            messagingSenderId: "1071390095092"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="js/angularfire.min.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller='myCtrl'>
@@ -32,10 +45,13 @@
 
     <script src="index.js"></script>
     <script>
-        var app = angular.module('myApp', []);
+        var database = firebase.database();
 
-        app.controller('myCtrl', function ($scope) {
-            $scope.arrList = lsExGJInit("todo");
+        var app = angular.module('myApp', ['firebase']);
+
+        app.controller('myCtrl', function ($scope, $firebaseArray) {
+            $scope.arrList = $firebaseArray(database.ref('list'));
+            // console.log();
             $scope.addAct = function () {
                 eId += 1;
                 let inputActivity = $("iputActivity").value;
@@ -50,10 +66,16 @@
 
                 $scope.arrList.push(data);
 
+                // save data in local storage
+
                 let newArr = lsExGJInit("todo");
                 newArr.push(data);
                 lsSetJ('todo', newArr);
-                // save data in local storage
+
+
+                // Get a reference to the database service  ......   write data in firebase DB
+
+                database.ref('list').push(data);
 
             }
 
@@ -69,6 +91,8 @@
                 //         arr.splice(i, 1);
                 //     }
                 // }
+
+                // Remove data in local storage
 
                 let newArr = lsExGJInit("todo");
                 let got = newArr.find(function (el) {

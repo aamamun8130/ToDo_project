@@ -34,7 +34,7 @@
         <li ng-repeat="x in arrList">
             <span id="#">{{x.activity}}</span>
             <i id="{{x.id}}" ng-click="doneActivity(this.id); removeElement(this.id);" class="fa fa-check-circle" style="padding-left:15px; color:aqua; float: right; height: 50px;"></i>
-            <i id="{{x.id}}" ng-click="rmvAct($event);" class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>
+            <i id="{{x.$id}}" ng-click="rmvAct($event);" class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>
         </li>
     </ul>
     <hr style="background-color: grey;margin: 30px;">
@@ -50,8 +50,9 @@
         var app = angular.module('myApp', ['firebase']);
 
         app.controller('myCtrl', function ($scope, $firebaseArray) {
-            $scope.arrList = $firebaseArray(database.ref('list'));
-            // console.log();
+
+            $scope.arrList = $firebaseArray(database.ref('list'));   ////    Very important line.....for Angular
+
             $scope.addAct = function () {
                 eId += 1;
                 let inputActivity = $("iputActivity").value;
@@ -64,13 +65,13 @@
 
                 };
 
-                $scope.arrList.push(data);
+                //$scope.arrList.push(data);
 
                 // save data in local storage
 
-                let newArr = lsExGJInit("todo");
-                newArr.push(data);
-                lsSetJ('todo', newArr);
+                // let newArr = lsExGJInit("todo");
+                // newArr.push(data);
+                // lsSetJ('todo', newArr);
 
 
                 // Get a reference to the database service  ......   write data in firebase DB
@@ -94,13 +95,18 @@
 
                 // Remove data in local storage
 
-                let newArr = lsExGJInit("todo");
-                let got = newArr.find(function (el) {
-                    return el.id == event.target.id;
-                });
-                newArr.splice(newArr.indexOf(got), 1);
-                lsSetJ('todo', newArr);
-                $scope.arrList = lsExGJInit("todo");
+                // let newArr = lsExGJInit("todo");
+                // let got = newArr.find(function (el) {
+                //     return el.id == event.target.id;
+                // });
+                // newArr.splice(newArr.indexOf(got), 1);
+                // lsSetJ('todo', newArr);
+                // $scope.arrList = lsExGJInit("todo");
+
+                // Remove from firebase
+
+                database.ref('list').child(event.target.id).remove();
+                $scope.arrList = $firebaseArray(database.ref('list'));
 
             }
         });

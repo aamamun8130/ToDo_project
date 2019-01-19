@@ -33,8 +33,9 @@
     <script src="index.js"></script>
     <script>
         var app = angular.module('myApp', []);
+
         app.controller('myCtrl', function ($scope) {
-            $scope.arrList = [];
+            $scope.arrList = lsExGJInit("todo");
             $scope.addAct = function () {
                 eId += 1;
                 let inputActivity = $("iputActivity").value;
@@ -46,22 +47,36 @@
                     expData: expireDate
 
                 };
-                localStorage.setItem('todo', JSON.stringify(data));
+
                 $scope.arrList.push(data);
+
+                let newArr = lsExGJInit("todo");
+                newArr.push(data);
+                lsSetJ('todo', newArr);
+                // save data in local storage
+
             }
 
             $scope.rmvAct = function (event) {
                 //console.log(event.target.id);
                 //console.log($scope.arrList);
-                let got = $scope.arrList.find(function (el) {
-                    return el.id == event.target.id;
-                });
-                $scope.arrList.splice($scope.arrList.indexOf(got), 1);
+                // let got = $scope.arrList.find(function (el) {
+                //     return el.id == event.target.id;
+                // });
+                //$scope.arrList.splice($scope.arrList.indexOf(got), 1);
                 // for (var i = 0; i < $scope.arrList.length - 1; i++) {
                 //     if ($scope.arrList[i].id === event.target.id) {
                 //         arr.splice(i, 1);
                 //     }
                 // }
+
+                let newArr = lsExGJInit("todo");
+                let got = newArr.find(function (el) {
+                    return el.id == event.target.id;
+                });
+                newArr.splice(newArr.indexOf(got), 1);
+                lsSetJ('todo', newArr);
+                $scope.arrList = lsExGJInit("todo");
 
             }
         });

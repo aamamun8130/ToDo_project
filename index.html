@@ -8,9 +8,11 @@
     <title>todo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller='myCtrl'>
     <header>
         <input id="iputActivity" type="text" placeholder="Enter activity..." />
         <button id="add" onclick="inputData();"><i style="color:#e68609" class="fa fa-plus"></i></button>
@@ -20,10 +22,16 @@
     <hr style="background-color: grey;margin: 30px;">
 
     <ul id="doneActContainer">
-        
+
     </ul>
 
     <script src="index.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+        });
+
+    </script>
 </body>
 
 </html>

@@ -1,7 +1,28 @@
+function lsSet(vname, data) {
+    localStorage.setItem(vname, data);
+}
+
+function lsSetJ(vname, data) {
+    localStorage.setItem(vname, JSON.stringify(data));
+}
+
+function lsGet(vname) {
+    return localStorage.getItem(vname);
+}
+
+function lsGetJ(vname) {
+    return JSON.parse(localStorage.getItem(vname));
+}
+
+function lsExGJInit(vname, data) {
+    return lsGet(vname) ? lsGetJ(vname) : data;
+}
+
 function $(id) {
     return document.getElementById(id);
 }
 
+var activityArr = [];
 var eId = 0;
 
 /// Input data save in variable
@@ -17,10 +38,9 @@ function inputData(){
                     expData : expireDate
     
                 };
-
-    console.log(data);
-    
-    DOMRender(data);           
+   // console.log(data);
+    activityArr.push(data);
+    // DOMRender(data);           
     
 }
 

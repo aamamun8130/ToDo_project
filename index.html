@@ -15,9 +15,14 @@
 <body ng-app="myApp" ng-controller='myCtrl'>
     <header>
         <input id="iputActivity" type="text" placeholder="Enter activity..." />
-        <button id="add" onclick="inputData();"><i style="color:#e68609" class="fa fa-plus"></i></button>
+        <button id="add" ng-click="addAct()"><i style="color:#e68609" class="fa fa-plus"></i></button>
     </header>
     <ul id="actContainer">
+        <li ng-repeat="x in arrList">
+            <span id="#">{{x.activity}}</span>
+            <i id="{{x.id}}" ng-click="doneActivity(this.id); removeElement(this.id);" class="fa fa-check-circle" style="padding-left:15px; color:aqua; float: right; height: 50px;"></i>
+            <i id="{{x.id}}" ng-click="rmvAct($event);" class="fa fa-trash" aria-hidden="true" style="border-right: 2px solid violet; padding: 5px 15px; border-color: lightgrey; float: right"></i>
+        </li>
     </ul>
     <hr style="background-color: grey;margin: 30px;">
 
@@ -29,6 +34,36 @@
     <script>
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function ($scope) {
+            $scope.arrList = [];
+            $scope.addAct = function () {
+                eId += 1;
+                let inputActivity = $("iputActivity").value;
+                let expireDate = "25/05/19";
+                $("iputActivity").value = "";
+                let data = {
+                    id: eId,
+                    activity: inputActivity,
+                    expData: expireDate
+
+                };
+                localStorage.setItem('todo', JSON.stringify(data));
+                $scope.arrList.push(data);
+            }
+
+            $scope.rmvAct = function (event) {
+                //console.log(event.target.id);
+                //console.log($scope.arrList);
+                let got = $scope.arrList.find(function (el) {
+                    return el.id == event.target.id;
+                });
+                $scope.arrList.splice($scope.arrList.indexOf(got), 1);
+                // for (var i = 0; i < $scope.arrList.length - 1; i++) {
+                //     if ($scope.arrList[i].id === event.target.id) {
+                //         arr.splice(i, 1);
+                //     }
+                // }
+
+            }
         });
 
     </script>
